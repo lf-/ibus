@@ -1,5 +1,15 @@
 IBus - Input Bus
 
+REPRO the Bug I'm having:
+
+```
+cp ~/.XCompose{,.bak}
+cp XCompose* ~/.XCompose
+CFLAGS='-Og -ggdb' ./autogen.sh --prefix=/opt/ibus
+make -j64
+rm -rf ~/.cache/ibus/compose ; ./bus/ibus-daemon --verbose
+```
+
 Introduction
 ===
 
