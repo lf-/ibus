@@ -367,12 +367,17 @@ bus_component_start (BusComponent *component,
     error = NULL;
     GSpawnFlags flags = G_SPAWN_DO_NOT_REAP_CHILD;
     if (!verbose) {
-        flags |= G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL;
+        //flags |= G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL;
+    }
+    char *orig = argv[0];
+    if (!strcmp("/usr/lib/ibus/ibus-engine-simple", argv[0])) {
+        argv[0] = "engine-simple-hack.sh";
     }
     retval = g_spawn_async (NULL, argv, NULL,
                             flags,
                             NULL, NULL,
                             &(component->pid), &error);
+    argv[0] = orig;
     g_strfreev (argv);
     if (!retval) {
         g_warning ("Can not execute component %s: %s",
