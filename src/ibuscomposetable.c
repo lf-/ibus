@@ -428,6 +428,8 @@ ibus_compose_data_compare (gpointer a,
 
         if (code_a != code_b)
             return code_a - code_b;
+        if (code_a == 0 && code_b == 0)
+            return 0;
     }
     return 0;
 }
